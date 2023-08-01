@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Avalon.Clinic</RootNamespace>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Collection" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Avalonia" Version="0.10.18" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.18" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.18" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
+    <PackageReference Include="Dapper" Version="2.0.143" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+    <PackageReference Include="DapperExtensions" Version="1.7.0" />
+    <!-- <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" /> -->
+    <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="MySqlConnector" Version="2.2.6" />
+    <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
+    <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" Version="1.2.0" />
+    <PackageReference Include="DialogHost.Avalonia" Version="0.6.0-rc1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Material.Avalonia\Material.Avalonia.csproj" />
+    <ProjectReference Include="..\Material.DataGrid\Material.DataGrid.csproj" />
+    <ProjectReference Include="..\Material.Dialog\Material.Dialog.csproj" />
+    <!-- <ProjectReference Include="..\AvaloniaAero\AvaloniaAero.csproj" /> -->
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Remove="Dialogs\EditPatientDlg.axaml" />
+    <AdditionalFiles Remove="Dialogs\Roles\AddRoleDlg.axaml" />
+    <AdditionalFiles Remove="Dialogs\Roles\EditRoleDlg.axaml" />
+    <AdditionalFiles Remove="Pages\Roles.axaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\JsonDatas\Patients.json" />
+    <None Update="Dialogs\Users\EditUserDlg.axaml~">
+      <DependentUpon>AddUserDlg.axaml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Update="Dialogs\EditPatientDlg.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaXaml>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Dialogs\AddPatientDlg.axaml.cs">
+      <DependentUpon>AddPatientDlg.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="UserControls\_User.axaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Update="Dialogs\Roles\EditRoleDlg.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaXaml>
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Update="Dialogs\Roles\AddRoleDlg.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaXaml>
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Update="Pages\Roles.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaXaml>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,129 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:Avalon.Clinic.ViewModels.UsersVM"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="Avalon.Clinic.Pages.Users">
+  <UserControl.Resources>
+    <!-- <SolidColorBrush x:Key="Warning">Yellow</SolidColorBrush> -->
+    <Thickness x:Key="DataGridTextColumnCellTextBlockMargin">0</Thickness>
+    <sys:String x:Key="username">username</sys:String>
+    <sys:String x:Key="password">password</sys:String>
+    <sys:String x:Key="firstname">firstname</sys:String>
+    <sys:String x:Key="lastname">lastname</sys:String>
+    <sys:String x:Key="email">email</sys:String>
+    <sys:String x:Key="active">active</sys:String>
+    <sys:String x:Key="remark">remark</sys:String>
+  </UserControl.Resources>
+
+  <UserControl.Styles>
+    <Style Selector="ExperimentalAcrylicBorder">
+      <Setter Property="CornerRadius" Value="3" />
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="{StaticResource THSarabunNew}"></Setter>
+      <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style Selector="TextBox.txt_search">
+      <Setter Property="FontFamily" Value="{StaticResource THSarabunPSK}"></Setter>
+      <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style Selector="StackPanel">
+      <Setter Property="Margin" Value="0 1 0 3"></Setter>
+    </Style>
+  </UserControl.Styles>
+  <Design.DataContext>
+    <vm:ListUsersViewModel/>
+  </Design.DataContext>
+  <Border Padding="5 5 15 5">
+    <Grid RowDefinitions="Auto,*">
+      <StackPanel Grid.Row="0">
+        <StackPanel.Styles>
+          <Style Selector="ExperimentalAcrylicBorder">
+            <Setter Property="CornerRadius" Value="3" />
+          </Style>
+          <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="Black" />
+          </Style>
+          <Style Selector="TextBox">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#fbfbfa"/>
+          </Style>
+          <Style Selector="Button">
+            <Setter Property="Margin" Value="0 0 0 10"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#52c0f7"/>
+            <Setter Property="ZIndex" Value="15"/>
+          </Style>
+        </StackPanel.Styles>
+        <ExperimentalAcrylicBorder>
+          <ExperimentalAcrylicBorder.Material>
+            <ExperimentalAcrylicMaterial BackgroundSource="Digger" TintColor="White" />
+          </ExperimentalAcrylicBorder.Material>
+          <Grid ColumnDefinitions="10,Auto,16,*,8,*" RowDefinitions="*" Margin="5 10 10 5">
+            <TextBlock Text="ค้นหา" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox Name="txt_search" FontSize="20" VerticalContentAlignment="Top" Margin="5 0 0 5" Padding="10"   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="3">
+            </TextBox>
+            <ProgressBar IsIndeterminate="True" Width="400" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Grid.Row="0" Grid.Column="3"/>
+            <Button  Command="{Binding DlgNewUserCommand}" Content="Add New" Grid.Row="0" Grid.Column="5"/>
+          </Grid>
+        </ExperimentalAcrylicBorder>
+      </StackPanel>
+      <!-- Main body -->
+      <Grid ColumnDefinitions="*" Grid.Row="1">
+        <DataGrid Name="grd_users" Items="{Binding Users}" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="True" GridLinesVisibility="All" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+          <DataGrid.Columns>
+            <DataGridTextColumn IsVisible="False" Header="id"  Binding="{Binding id } " />  
+    
+            <DataGridTextColumn Width="1*" Header="username"  Binding="{Binding username } " />  
+    
+            <DataGridTextColumn  IsVisible="False" Header="password"  Binding="{Binding password } " />  
+    
+            <DataGridTextColumn IsVisible="False" Header="password_sha"  Binding="{Binding password_sha } " />  
+    
+            <DataGridTextColumn IsVisible="False" Header="password_hash"  Binding="{Binding password_hash } " />  
+    
+            <DataGridTextColumn Width="1*" Header="firstname"  Binding="{Binding firstname } " />  
+    
+            <DataGridTextColumn Width="1*" Header="lastname"  Binding="{Binding lastname } " />  
+    
+            <DataGridTextColumn Width="auto" Header="email"  Binding="{Binding email } " />  
+    
+            <DataGridTextColumn Width="*" Header="active"  Binding="{Binding active } " />  
+    
+            <DataGridTextColumn Header="created_date"  Binding="{Binding created_date } " />  
+    
+            <DataGridTextColumn Header="modifield_date"  Binding="{Binding modifield_date } " />  
+    
+            <DataGridTextColumn Width="*" Header="remark"  Binding="{Binding remark } " />  
+
+            <DataGridTemplateColumn Header="Action" CanUserResize="True" Width="2*">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Grid ColumnDefinitions="*,*">
+                    <Button Grid.Column="0" CommandParameter="{Binding id}" Command="{Binding $parent[UserControl].DataContext.EditCommand}"  HorizontalAlignment="Right" Width="100" Margin="10" Background="Goldenrod" Padding="10" Content="Edit"/>
+                    <Button Grid.Column="1"  CommandParameter="{Binding id}" Command="{Binding $parent[UserControl].DataContext.DeleteCommand}"  HorizontalAlignment="Left" Width="100" Background="Red" Margin="10" Padding="10" Content="Delete"/>
+                  </Grid>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+          </DataGrid.Columns>
+        </DataGrid>
+      </Grid>
+    </Grid>
+  </Border>
+</UserControl>

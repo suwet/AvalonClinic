@@ -1,0 +1,163 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:users="clr-namespace:Avalon.Clinic.Dialogs.Users"
+        mc:Ignorable="d"
+        x:Class="Avalon.Clinic.Dialogs.Users.AddUserDlg"
+        CanResize="False"
+        HorizontalAlignment="Center"
+        Height="490"
+        MaxHeight="490"
+        MaxWidth="980"
+        Width="980"
+        VerticalAlignment="Center"
+        Background="#ededee"
+        WindowStartupLocation="CenterOwner"
+        d:DesignHeight="390"
+        d:DesignWidth="800"
+        Title="เพิ่มผู้ใช้งานระบบ">
+  <Window.Styles>
+    <Style Selector="CheckBox">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="TH SarabunPSK" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style Selector="TextBox">
+      <!-- <Setter Property="BorderBrush" Value="{DynamicResource Warning}"/> -->
+      <Setter Property="Height" Value="26" />
+      <Setter Property="FontFamily" Value="TH SarabunPSK" />
+      <Setter Property="FontSize" Value="18" />
+      <Setter Property="BorderBrush" Value="Gray" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="2" />
+      <Setter Property="Foreground" Value="Black" />
+      <Setter Property="Background" Value="#fbfbfa" />
+    </Style>
+    <Style Selector="Label">
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Foreground" Value="Black" />
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="Margin" Value="0 0 0 10" />
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Width" Value="100" />
+      <Setter Property="Height" Value="38" />
+      <Setter Property="Background" Value="#52c0f7" />
+      <Setter Property="ZIndex" Value="15" />
+    </Style>
+    <Style Selector="DataValidationErrors">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DockPanel LastChildFill="True">
+            <ContentControl
+              Content="{Binding (DataValidationErrors.Errors)}"
+              ContentTemplate="{TemplateBinding ErrorTemplate}"
+              DataContext="{TemplateBinding Owner}"
+              DockPanel.Dock="Right"
+              IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+            <ContentPresenter
+              Background="{TemplateBinding Background}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              Content="{TemplateBinding Content}"
+              ContentTemplate="{TemplateBinding ContentTemplate}"
+              CornerRadius="{TemplateBinding CornerRadius}"
+              Name="PART_ContentPresenter"
+              Padding="{TemplateBinding Padding}" />
+          </DockPanel>
+        </ControlTemplate>
+      </Setter>
+      <Setter Property="ErrorTemplate">
+        <DataTemplate>
+          <Canvas
+            Background="Transparent"
+            Height="14"
+            Margin="4,0,1,0"
+            Width="14">
+            <Canvas.Styles>
+              <Style Selector="ToolTip">
+                <Setter Property="Background" Value="Red" />
+                <Setter Property="BorderBrush" Value="Red" />
+              </Style>
+            </Canvas.Styles>
+            <ToolTip.Tip>
+              <ItemsControl Items="{Binding}" />
+            </ToolTip.Tip>
+            <Path
+              Data="M14,7 A7,7 0 0,0 0,7 M0,7 A7,7 0 1,0 14,7 M7,3l0,5 M7,9l0,2"
+              Stroke="Red"
+              StrokeThickness="2" />
+          </Canvas>
+        </DataTemplate>
+      </Setter>
+    </Style>
+  </Window.Styles>
+  <Border Padding="5" Margin="2" BorderBrush="DimGray" BorderThickness="1" CornerRadius="2">
+    <Grid RowDefinitions="auto,*,50">
+      <StackPanel Orientation="Horizontal"
+                  Grid.Row="0"
+                  Background="Silver">
+        <Label Content="Add new user"
+               Margin="2,0"
+               CornerRadius="1.5"
+               FontSize="16"
+               FontWeight="Bold" />
+      </StackPanel>
+      <Grid Grid.Row="1"
+            ColumnDefinitions="160,*,150,*"
+            Margin="10,5,10,0"
+            RowDefinitions="auto,auto,auto,auto,auto">
+        <Label Content="username" Grid.Row="0" Grid.Column="0" Margin="10,0,0,10" />
+        <TextBox Text="{Binding username }" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" />
+        <Label Content="password" Grid.Row="0" Grid.Column="2" Margin="0,0,0,10" />
+        <TextBox Text="{Binding password }" Grid.Row="0" Grid.Column="3" Margin="0,0,0,10" />
+
+        <Label Content="firstname" Grid.Row="1" Grid.Column="0" Margin="10,0,0,10" />
+        <TextBox Text="{Binding firstname }" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" />
+        <Label Content="lastname" Grid.Row="1" Grid.Column="2" Margin="0,0,0,10" />
+        <TextBox Text="{Binding lastname }" Grid.Row="1" Grid.Column="3" Margin="0,0,0,10" />
+
+        <Label Content="email" Grid.Row="2" Grid.Column="0" Margin="10,0,0,10" />
+        <TextBox Text="{Binding email }" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" />
+        <Label Content="active" Grid.Row="2" Grid.Column="2" Margin="0,0,0,10" />
+        <CheckBox Grid.Row="2" Grid.Column="3" Margin="0,0,0,10" IsChecked="True" />
+
+        <Label Content="สิทธิ์ใช้งาน" Grid.Row="3" Grid.Column="0" Margin="10,0,0,10" />
+       
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,10" Orientation="Horizontal">
+              <CheckBox Grid.Row="3" Content="Admin"  IsChecked="True" Margin="0,0,20,0"/>
+              <CheckBox Grid.Row="3" Content="Account"  IsChecked="True" Margin="0,0,20,0" />
+              <CheckBox Grid.Row="3" Content="Owner"  IsChecked="True" Margin="0,0,20,0" />
+        </StackPanel>
+
+        <Label Content="remark" Grid.Row="4" Grid.Column="0" Margin="10,0,0,10" />
+        <TextBox AcceptsReturn="True" Height="100" Text="{Binding remark}" Grid.Row="4" Grid.Column="1"
+                 Grid.ColumnSpan="3" Padding="10" Margin="0,0,0,10" />
+      </Grid>
+      <Grid Grid.Row="2"
+            Margin="10,0,10,2"
+            ColumnDefinitions="*,*">
+        <Button Margin="0,0,10,0"
+                Grid.Row="0"
+                Grid.Column="0"
+                Command="{Binding SaveAddNew}"
+                CommandParameter="{Binding $parent[Window]}"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Center"
+                Width="80"
+                Content="Save" />
+        <Button Margin="10,0,0,0"
+                Grid.Row="0"
+                Grid.Column="1"
+                Command="{Binding Cancel}"
+                CommandParameter="{Binding $parent[Window]}"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                Width="80"
+                Content="Cancel" />
+      </Grid>
+    </Grid>
+  </Border>
+</Window>

@@ -1,0 +1,34 @@
+[
+  {
+    "Address": "Khonkaen1",
+    "Age": "35",
+    "BirthDate": "06/06/1986",
+    "BloodGroupId": "1",
+    "Email": "meeho@gmail.com",
+    "FirstName": "suwet",
+    "LastName": "Phraiphruek",
+    "Id": "1",
+    "IDCard": "1459900063761",
+    "ChronicDisease": "ไม่มี",
+    "MobliePhone": "0872144932",
+    "Sex": "man",
+    "Ocipation": "Progammer",
+    "Nationality": "Thai"
+  },
+  {
+    "Address": "Khonkaen2",
+    "Age": "35",
+    "BirthDate": "06/05/1986",
+    "BloodGroupId": "2",
+    "Email": "meeho@gmail.com",
+    "FirstName": "wetsu",
+    "LastName": "phruek",
+    "Id": "2",
+    "IDCard": "1459900063761",
+    "ChronicDisease": "ไม่มี",
+    "MobliePhone": "0872144932",
+    "Sex": "woman",
+    "Ocipation": "Progammer",
+    "Nationality": "Thai"
+  }
+]

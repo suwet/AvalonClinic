@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Avalon.Clinic.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             x:Class="Avalon.Clinic.Pages.Register">
+
+  <UserControl.Resources>
+    <!-- <SolidColorBrush x:Key="Warning">Yellow</SolidColorBrush> -->
+    <Thickness x:Key="DataGridTextColumnCellTextBlockMargin">0</Thickness>
+    <sys:String x:Key="IDCard">หมายเลขบัตรประชาชน</sys:String>
+    <sys:String x:Key="Sex">เพศ</sys:String>
+    <sys:String x:Key="FirstName">ชื่อ</sys:String>
+    <sys:String x:Key="LastName">นามสกุล</sys:String>
+    <sys:String x:Key="BloodGroup">หมู่เลือด</sys:String>
+    <sys:String x:Key="CongenitalDisease">โรคประจำตัว</sys:String>
+    <sys:String x:Key="Address">ที่อยู่</sys:String>
+    <sys:String x:Key="MobliePhone">เบอร์โทรศัพท์</sys:String>
+    <sys:String x:Key="Nationality">สัญชาติ</sys:String>
+    <sys:String x:Key="Ocipation">อาชีพ</sys:String>
+    <sys:String x:Key="Email">อีเมล</sys:String>
+    <sys:String x:Key="ChronicDisease">กลุ่มโรครื้อรัง</sys:String>
+    <sys:String x:Key="Age">อายุ</sys:String>
+    <sys:String x:Key="Remark">หมายเหตุ</sys:String>
+  </UserControl.Resources>
+  <!-- <Design.DataContext>
+                <vm:RegisterPatientViewModel/>
+            </Design.DataContext> -->
+  <UserControl.Styles>
+    <Style Selector="ExperimentalAcrylicBorder">
+      <Setter Property="CornerRadius" Value="3" />
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="{StaticResource THSarabunNew}"></Setter>
+      <Setter Property="FontSize" Value="18"/>
+    </Style>
+    <Style Selector="TextBox.txt_search">
+      <Setter Property="FontFamily" Value="{StaticResource THSarabunPSK}"></Setter>
+      <Setter Property="FontSize" Value="18"/>
+    </Style>
+    <Style Selector="StackPanel">
+      <Setter Property="Margin" Value="0 1 0 3"></Setter>
+    </Style>
+  </UserControl.Styles>
+  <Border Padding="5 5 15 5">
+    <Grid RowDefinitions="Auto,*">
+      <StackPanel Grid.Row="0">
+        <StackPanel.Styles>
+          <Style Selector="ExperimentalAcrylicBorder">
+            <Setter Property="CornerRadius" Value="3" />
+          </Style>
+          <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="Black" />
+          </Style>
+          <Style Selector="TextBox">
+            <!-- <Setter Property="BorderBrush" Value="{DynamicResource Warning}"/> -->
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#fbfbfa"/>
+          </Style>
+          <Style Selector="Button">
+            <Setter Property="Margin" Value="0 0 0 10"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#52c0f7"/>
+            <Setter Property="ZIndex" Value="15"/>
+          </Style>
+        </StackPanel.Styles>
+        <ExperimentalAcrylicBorder>
+          <ExperimentalAcrylicBorder.Material>
+            <ExperimentalAcrylicMaterial BackgroundSource="Digger" TintColor="White" />
+          </ExperimentalAcrylicBorder.Material>
+          <Grid ColumnDefinitions="10,Auto,16,*,8,*" RowDefinitions="*" Margin="5 10 10 5">
+            <TextBlock Text="ค้นหา" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox Name="txt_search" FontSize="20" VerticalContentAlignment="Top" Margin="5 0 0 5" Padding="10" Text="{Binding Filter_Text,Mode=TwoWay}"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="3">
+            </TextBox>
+            <ProgressBar IsIndeterminate="True" Width="400" VerticalAlignment="Bottom" HorizontalAlignment="Left"  IsVisible="{Binding Search_Progress_Visible}" Grid.Row="0" Grid.Column="3"/>
+            <Button Command="{Binding DlgNewPatientCommand}" Content="New" Grid.Row="0" Grid.Column="5"/>
+          </Grid>
+        </ExperimentalAcrylicBorder>
+      </StackPanel>
+      <!-- Main body -->
+      <Grid ColumnDefinitions="*" Grid.Row="1">
+        <DataGrid Name="grd_patient" Items="{Binding PatientViewModels}" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="True" GridLinesVisibility="All" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+          <DataGrid.Columns>
+            <DataGridTextColumn  IsVisible="False" Binding="{Binding Id}"/>
+            <DataGridTextColumn Width="1.5*" DisplayIndex="0" Header="{StaticResource IDCard}"  Binding="{Binding IDCard}"/>
+            <DataGridTextColumn Width="*"  DisplayIndex="1" CanUserResize="True" Header="{StaticResource FirstName}" Binding="{Binding FirstName}"/>
+            <DataGridTextColumn Width="*"  DisplayIndex="2" CanUserResize="True" Header="{StaticResource LastName}" Binding="{Binding LastName}"/>
+            <DataGridTextColumn  Header="{StaticResource BloodGroup}" Binding="{Binding BloodGroupName}"/>
+            <DataGridTextColumn IsVisible="False" Header="{StaticResource Address}" Binding="{Binding Address}"/>
+            <DataGridTextColumn Width="*" CanUserResize="True" Header="{StaticResource MobliePhone}" Binding="{Binding MobliePhone}"/>
+            <DataGridTextColumn CanUserResize="True" Header="{StaticResource Nationality}" Binding="{Binding Nationality}"/>
+            <DataGridTextColumn IsVisible="False" Header="{StaticResource Ocipation}" Binding="{Binding Ocipation}"/>
+            <DataGridTextColumn Width="*" CanUserResize="True" Header="{StaticResource Email}" Binding="{Binding Email}"/>
+            <DataGridTextColumn Width="1.5*" DisplayIndex="6" CanUserResize="True" Header="{StaticResource CongenitalDisease}" Binding="{Binding ChronicDisease}"/>
+            <DataGridTemplateColumn Header="Action" CanUserResize="True" Width="2*">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Grid ColumnDefinitions="*,*">
+                    <Button Grid.Column="0"  CommandParameter="{Binding Id}" Command="{Binding $parent[UserControl].DataContext.EditCommand}" HorizontalAlignment="Right" Width="100" Margin="10" Background="Goldenrod" Padding="10" Content="แก้ไข"/>
+                    <Button Grid.Column="1" Command="{Binding $parent[UserControl].DataContext.DeleteCommand}" CommandParameter="{Binding Id}" HorizontalAlignment="Left" Width="100" Background="Red" Margin="10" Padding="10" Content="ลบ"/>
+                  </Grid>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+          </DataGrid.Columns>
+        </DataGrid>
+      </Grid>
+    </Grid>
+  </Border>
+</UserControl>

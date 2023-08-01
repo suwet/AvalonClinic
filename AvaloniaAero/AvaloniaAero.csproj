@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>$(ExtraTargetFrameworks)net6.0</TargetFrameworks>
+		<LangVersion>8.0</LangVersion>
+	</PropertyGroup>
+	<!--PropertyGroup Condition="$(DefineConstants.Contains(DOTNET_SDK_6_0))"-->
+	<ItemGroup>
+		<AvaloniaResource Include="Assets/**" />
+		<AvaloniaResource Include="Resources/**" />
+		<!--
+		<AvaloniaResource Include="*.xaml" />
+		<AvaloniaResource Include="**/*.xaml" />
+		-->
+		<!--
+		<AvaloniaResource Include="*.axaml" />
+		<AvaloniaResource Include="**/*.axaml" />
+		-->
+		<!--PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVer)" /-->
+	</ItemGroup>
+</Project>

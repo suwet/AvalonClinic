@@ -1,0 +1,415 @@
+<Window
+    Background="Transparent"
+    CanResize="False"
+    Height="390"
+    HorizontalAlignment="Center"
+    MaxHeight="390"
+    MaxWidth="980"
+    Title="ลงทะเบียนผู้ป่วยใหม่"
+    VerticalAlignment="Center"
+    Width="880"
+    WindowStartupLocation="CenterOwner"
+    d:DesignHeight="390"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Avalon.Clinic.Dialogs.AddPatientDlg"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:intstr="clr-namespace:Avalon.Clinic.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    xmlns:vm="clr-namespace:Avalon.Clinic.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+    -->
+
+    <Window.Resources>
+        <!-- <SolidColorBrush x:Key="Warning">Yellow</SolidColorBrush> -->
+        <intstr:IntegerToStringConverter x:Key="IntegerToStringConverter" />
+        <sys:String x:Key="IDCard">หมายเลขบัตรประชาชน</sys:String>
+        <sys:String x:Key="Sex">เพศ</sys:String>
+        <sys:String x:Key="FirstName">ชื่อ</sys:String>
+        <sys:String x:Key="DOB">เกิดวันที่</sys:String>
+        <sys:String x:Key="LastName">นามสกุล</sys:String>
+        <sys:String x:Key="BloodGroup">หมู่เลือด</sys:String>
+        <sys:String x:Key="CongenitalDisease">โรคประจำตัว</sys:String>
+        <sys:String x:Key="Address">ที่อยู่</sys:String>
+        <sys:String x:Key="MobliePhone">เบอร์โทรศัพท์</sys:String>
+        <sys:String x:Key="Nationality">สัญชาติ</sys:String>
+        <sys:String x:Key="Ocipation">อาชีพ</sys:String>
+        <sys:String x:Key="Email">อีเมล</sys:String>
+        <sys:String x:Key="ChronicDisease">กลุ่มโรครื้อรัง</sys:String>
+        <sys:String x:Key="Age">อายุ</sys:String>
+        <sys:String x:Key="Remark">หมายเหตุ</sys:String>
+    </Window.Resources>
+    <Window.Styles>
+        <Style Selector="ComboBox">
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Padding" Value="0 10" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Background" Value="#f7f7f7" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="PlaceholderForeground" Value="Gray" />
+            <Setter Property="Margin" Value="2 0 2 0" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="2" />
+        </Style>
+        <Style Selector="ExperimentalAcrylicBorder">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="MaxWidth" Value="970" />
+        </Style>
+        <Style Selector="ExperimentalAcrylicBorder">
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+        <Style Selector="TextBox">
+            <!-- <Setter Property="BorderBrush" Value="{DynamicResource Warning}"/> -->
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="FontFamily" Value="TH SarabunPSK" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="#fbfbfa" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Margin" Value="0 0 0 10" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Width" Value="78" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Background" Value="#52c0f7" />
+            <Setter Property="ZIndex" Value="15" />
+        </Style>
+        <Style Selector="DataValidationErrors">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel LastChildFill="True">
+                        <ContentControl
+                            Content="{Binding (DataValidationErrors.Errors)}"
+                            ContentTemplate="{TemplateBinding ErrorTemplate}"
+                            DataContext="{TemplateBinding Owner}"
+                            DockPanel.Dock="Right"
+                            IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+                        <ContentPresenter
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}" />
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+            <Setter Property="ErrorTemplate">
+                <DataTemplate>
+                    <Canvas
+                        Background="Transparent"
+                        Height="14"
+                        Margin="4,0,1,0"
+                        Width="14">
+                        <Canvas.Styles>
+                            <Style Selector="ToolTip">
+                                <Setter Property="Background" Value="Red" />
+                                <Setter Property="BorderBrush" Value="Red" />
+                            </Style>
+                        </Canvas.Styles>
+                        <ToolTip.Tip>
+                            <ItemsControl Items="{Binding}" />
+                        </ToolTip.Tip>
+                        <Path
+                            Data="M14,7 A7,7 0 0,0 0,7 M0,7 A7,7 0 1,0 14,7 M7,3l0,5 M7,9l0,2"
+                            Stroke="Red"
+                            StrokeThickness="2" />
+                    </Canvas>
+                </DataTemplate>
+            </Setter>
+        </Style>
+    </Window.Styles>
+    <ExperimentalAcrylicBorder Margin="1" Padding="3">
+        <ExperimentalAcrylicBorder.Material>
+            <ExperimentalAcrylicMaterial BackgroundSource="Digger" TintColor="White" />
+        </ExperimentalAcrylicBorder.Material>
+        <Border
+            BorderBrush="Gray"
+            BorderThickness="1"
+            Padding="1">
+            <Grid RowDefinitions="*,Auto">
+                <StackPanel
+                    Grid.Row="0"
+                    HorizontalAlignment="Stretch"
+                    Orientation="Vertical"
+                    VerticalAlignment="Stretch">
+                    <Grid
+                        ColumnDefinitions="10,150,10,210,10,78,10,190"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,20,0,20"
+                        RowDefinitions="*,*,*,*,*,*,*"
+                        ShowGridLines="False"
+                        VerticalAlignment="Stretch">
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource IDCard}" />
+                        <TextBox
+                            Grid.Column="3"
+                            Grid.Row="0"
+                            Padding="0,0,0,10"
+                            Text="{Binding IDCard}"
+                            Width="200" />
+                        <TextBlock
+                            Grid.Column="5"
+                            Grid.Row="0"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource DOB}" />
+                        <StackPanel
+                            Grid.Column="7"
+                            Grid.Row="0"
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <ComboBox
+                                Items="{Binding Days}"
+                                Name="cmb_day"
+                                PlaceholderText="วันที่">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding DayNumber}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox
+                                Items="{Binding Months}"
+                                Name="cmb_month"
+                                PlaceholderText="เดือน"
+                                Width="120">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=MonthNameTH}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox
+                                Items="{Binding Years}"
+                                Name="cmb_year"
+                                PlaceholderText="ปี">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding YearNumberTH}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <!-- <new Row> -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource Sex}" />
+                        <StackPanel
+                            Grid.Column="3"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,15"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Top"
+                            Width="200">
+                            <RadioButton GroupName="_Sex" Name="rdo_man">ชาย</RadioButton>
+                            <RadioButton GroupName="_Sex" Name="rdo_woman">หญิง</RadioButton>
+                        </StackPanel>
+                        <TextBlock
+                            Grid.Column="5"
+                            Grid.Row="1"
+                            Padding="10,0,0,10"
+                            Text="{StaticResource MobliePhone}" />
+                        <TextBox
+                            Grid.Column="7"
+                            Grid.Row="1"
+                            Padding="10,0,0,10"
+                            Text="{Binding MobliePhone}"
+                            Width="200" />
+                        <!-- <new Row> -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,0,10"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource FirstName}" />
+                        <TextBox
+                            Grid.Column="3"
+                            Grid.Row="2"
+                            Padding="0,0,0,10"
+                            Text="{Binding FirstName}"
+                            Width="200" />
+                        <TextBlock
+                            Grid.Column="5"
+                            Grid.Row="2"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource Nationality}" />
+                        <TextBox
+                            Grid.Column="7"
+                            Grid.Row="2"
+                            Padding="0,0,0,10"
+                            Text="{Binding Nationality}"
+                            Width="200" />
+                        <!-- <new Row> -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.Row="3"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,0,10"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource LastName}" />
+                        <TextBox
+                            Grid.Column="3"
+                            Grid.Row="3"
+                            Padding="0,0,0,10"
+                            Text="{Binding LastName}"
+                            Width="200" />
+                        <TextBlock
+                            Grid.Column="5"
+                            Grid.Row="3"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource Ocipation}" />
+                        <TextBox
+                            Grid.Column="7"
+                            Grid.Row="3"
+                            Padding="0,0,0,10"
+                            Text="{Binding Ocipation}"
+                            Width="200" />
+                        <!-- <new Row> -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.Row="4"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,0,10"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource BloodGroup}" />
+                        <ComboBox
+                            Grid.Column="3"
+                            Grid.Row="4"
+                            HorizontalAlignment="Left"
+                            Items="{Binding BloodGroups}"
+                            Margin="0"
+                            Name="cmb_bloodgroup"
+                            Padding="0"
+                            Width="200">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding BloodGroupName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock
+                            Grid.Column="5"
+                            Grid.Row="4"
+                            Margin="0,0,0,10"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource Email}" />
+                        <TextBox
+                            Grid.Column="7"
+                            Grid.Row="4"
+                            Padding="0,0,0,10"
+                            Text="{Binding Email}"
+                            Width="200" />
+                        <!-- <new Row> -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.Row="5"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,0,10"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource CongenitalDisease}" />
+                        <TextBox
+                            Grid.Column="3"
+                            Grid.Row="5"
+                            Padding="0,0,0,10"
+                            Text="{Binding ChronicDisease}"
+                            Width="200" />
+                        <TextBlock
+                            Grid.Column="5"
+                            Grid.Row="5"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource ChronicDisease}" />
+                        <TextBox
+                            Grid.Column="7"
+                            Grid.Row="5"
+                            Padding="0,0,0,10"
+                            Text="{Binding ChronicDisease}"
+                            Width="200" />
+                        <!-- <new Row> -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Grid.Row="6"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,0,10"
+                            Padding="0,0,0,10"
+                            Text="{StaticResource Address}" />
+                        <TextBox
+                            AcceptsReturn="True"
+                            Grid.Column="3"
+                            Grid.ColumnSpan="4"
+                            Grid.Row="6"
+                            Height="60"
+                            HorizontalContentAlignment="Left"
+                            Text="{Binding Address}"
+                            TextWrapping="Wrap"
+                            Width="512" />
+                    </Grid>
+                </StackPanel>
+                <!--  Grid Row 1  -->
+                <StackPanel
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Grid ColumnDefinitions="5,Auto,5,Auto" RowDefinitions="*">
+                        <Button
+                            Command="{Binding SaveAddNew}"
+                            CommandParameter="{Binding $parent[Window]}"
+                            Grid.Column="1"
+                            Padding="3">
+                            Save
+                        </Button>
+                        <Button
+                            Command="{Binding Cancel}"
+                            CommandParameter="{Binding $parent[Window]}"
+                            Grid.Column="3"
+                            Padding="3">
+                            Cancel
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </ExperimentalAcrylicBorder>
+
+</Window>
