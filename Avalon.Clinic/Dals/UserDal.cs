@@ -20,7 +20,10 @@ namespace Avalon.Clinic.Dals
             using (var connection = new MySqlConnection(ConnectionString))    
             {    
                 connection.Open();    
-                string query = @"Select  id,username,password,password_sha,password_hash,firstname,lastname,email,active,created_date,modifield_date,remark  From users";
+                string query = @"Select r.id,r.username,r.password,r.password_sha,r.password_hash,r.firstname,r.lastname,r.email,r.active,r.created_date,r.modifield_date,r.remark 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=3 limit 1)) as isadmin 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=4 limit 1)) as isaccount 
+ from users r";
                 results = connection.Query<UsersModel>(query).ToList();    
                 connection.Close();    
             }    
@@ -33,7 +36,10 @@ namespace Avalon.Clinic.Dals
                     using (var connection = new MySqlConnection(ConnectionString))    
                     {    
                         await connection.OpenAsync();    
-                        string query = @"Select  id,username,password,password_sha,password_hash,firstname,lastname,email,active,created_date,modifield_date,remark  From users";
+                        string query = @"Select r.id,r.username,r.password,r.password_sha,r.password_hash,r.firstname,r.lastname,r.email,r.active,r.created_date,r.modifield_date,r.remark 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=3 limit 1)) as isadmin 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=4 limit 1)) as isaccount 
+ from users r";
                         results = await connection.QueryAsync<UsersModel>(query);    
                         connection.CloseAsync();    
                     }    
@@ -130,8 +136,12 @@ id=@data.id,username=data.username,password=data.password,firstname=data.firstna
             using (var connection = new MySqlConnection(ConnectionString))    
             {    
                 connection.Open();    
-                string sql = @"Select  id,username,password,password_sha,password_hash,firstname,lastname,email,active,created_date,modifield_date,remark  from users Where Id = @Id";
-                var result  = connection.QueryFirst<UsersModel>(sql, new {Id = Id });    
+                string sql = @"Select r.id,r.username,r.password,r.password_sha,r.password_hash,r.firstname,r.lastname,r.email,r.active,r.created_date,r.modifield_date,r.remark 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=3 limit 1)) as isadmin 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=4 limit 1)) as isaccount 
+ from users r
+Where r.id = @Id";
+                var result  = connection.QueryFirst<UsersModel>(sql, new {id = Id });    
                 connection.Close();    
                 return result;    
             }    
@@ -142,8 +152,12 @@ id=@data.id,username=data.username,password=data.password,firstname=data.firstna
                     using (var connection = new MySqlConnection(ConnectionString))    
                     {    
                         await connection.OpenAsync();    
-                        string sql = @"Select  id,username,password,password_sha,password_hash,firstname,lastname,email,active,created_date,modifield_date,remark  from users Where Id = @Id";
-                        var result  = await connection.QueryFirstAsync<UsersModel>(sql, new {Id = Id });    
+                        string sql = @"Select r.id,r.username,r.password,r.password_sha,r.password_hash,r.firstname,r.lastname,r.email,r.active,r.created_date,r.modifield_date,r.remark 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=3 limit 1)) as isadmin 
+,(SELECT EXISTS(select ur.user_id from user_in_role ur join roles ro on ur.role_id=ro.id WHERE ur.user_id=r.id and ur.role_id=4 limit 1)) as isaccount 
+ from users r
+Where r.id = @Id";
+                        var result  = await connection.QueryFirstAsync<UsersModel>(sql, new {id = Id });    
                         await connection.CloseAsync();    
                         return result;    
                     }    

@@ -11,7 +11,7 @@ namespace Avalon.Clinic.ViewModels.UsersVM
 {
 	public partial class UsersViewModel : ReactiveViewModelBase
 	{
-        private Int32  _id;  
+       		private Int32  _id;  
     
 		private String  _username;  
     
@@ -34,9 +34,13 @@ namespace Avalon.Clinic.ViewModels.UsersVM
 		private DateTime  _modifield_date;  
     
 		private String  _remark;  
+    
+		private Int32  _isadmin;  
+    
+		private Int32  _isaccount;  
 
 		////////////////////////////
-        public Int32  id  
+				public Int32  id  
  		{
 		   get=> _id;
 		   set => this.RaiseAndSetIfChanged(ref _id,value);
@@ -107,6 +111,17 @@ namespace Avalon.Clinic.ViewModels.UsersVM
 		   get=> _remark;
 		   set => this.RaiseAndSetIfChanged(ref _remark,value);
 		} 
-
+    
+		public Int32  isadmin  
+ 		{
+		   get=> _isadmin;
+		   set => this.RaiseAndSetIfChanged(ref _isadmin,value);
+		} 
+    
+		public Int32  isaccount  
+ 		{
+		   get=> _isaccount;
+		   set => this.RaiseAndSetIfChanged(ref _isaccount,value);
+		} 
 	}
 }

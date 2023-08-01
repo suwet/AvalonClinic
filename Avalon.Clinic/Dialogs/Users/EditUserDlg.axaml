@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         CanResize="False"
+        xmlns:cvt="clr-namespace:Avalon.Clinic.Converters"
         Height="490"
         MaxHeight="490"
         MaxWidth="980"
@@ -13,6 +14,9 @@
         Background="#ededee"
         x:Class="Avalon.Clinic.Dialogs.Users.EditUserDlg"
         Title="แก้ไขผู้ใช้งานระบบ">
+  <Window.Resources>
+     <cvt:IntegerToBoolConverter x:Key="IntToBool"/>
+  </Window.Resources>
   <Window.Styles>
     <Style Selector="TextBox">
       <!-- <Setter Property="BorderBrush" Value="{DynamicResource Warning}"/> -->
@@ -99,9 +103,9 @@
       <Grid Grid.Row="1"
             ColumnDefinitions="160,*,150,*"
             Margin="0,10,0,0"
-            RowDefinitions="auto,auto,auto,auto">
+            RowDefinitions="auto,auto,auto,auto,auto">
 
-        <Label Content="username" Grid.Row="0" Grid.Column="0" Margin="10,0,0,10" />
+       <Label Content="username" Grid.Row="0" Grid.Column="0" Margin="10,0,0,10" />
         <TextBox Text="{Binding username }" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" />
         <Label Content="password" Grid.Row="0" Grid.Column="2" Margin="0,0,0,10" />
         <TextBox Text="{Binding password }" Grid.Row="0" Grid.Column="3" Margin="0,0,0,10" />
@@ -116,8 +120,15 @@
         <Label Content="active" Grid.Row="2" Grid.Column="2" Margin="0,0,0,10" />
         <CheckBox Grid.Row="2" Grid.Column="3" Margin="0,0,0,10" IsChecked="True" />
 
-        <Label Content="remark" Grid.Row="3" Grid.Column="0" Margin="10,0,0,10" />
-        <TextBox AcceptsReturn="True" Height="100" Text="{Binding remark}" Grid.Row="3" Grid.Column="1"
+        <Label Content="สิทธิ์ใช้งาน" Grid.Row="3" Grid.Column="0" Margin="10,0,0,10" />
+       
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,10" Orientation="Horizontal">
+              <CheckBox Content="Admin" IsChecked="{Binding Path=isadmin, Converter={StaticResource IntToBool}}" Margin="0,0,20,0"/>
+              <CheckBox  Content="employee"  IsChecked="{Binding Path=isaccount, Converter={StaticResource IntToBool}}" Margin="0,0,20,0" />
+        </StackPanel>
+
+        <Label Content="remark" Grid.Row="4" Grid.Column="0" Margin="10,0,0,10" />
+        <TextBox AcceptsReturn="True" Height="100" Text="{Binding remark}" Grid.Row="4" Grid.Column="1"
                  Grid.ColumnSpan="3" Padding="10" Margin="0,0,0,10" />
 
       </Grid>
