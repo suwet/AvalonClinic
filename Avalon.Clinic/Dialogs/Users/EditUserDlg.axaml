@@ -29,6 +29,11 @@
       <Setter Property="Foreground" Value="Black" />
       <Setter Property="Background" Value="#fbfbfa" />
     </Style>
+    <Style Selector="CheckBox">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="TH SarabunPSK" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
     <Style Selector="Label">
       <Setter Property="VerticalAlignment" Value="Center" />
       <Setter Property="Foreground" Value="Black" />
@@ -137,7 +142,7 @@
         <Button Margin="0,0,10,0"
                 Grid.Row="0"
                 Grid.Column="0"
-                Command="{Binding SaveAddNew}"
+                Command="{Binding SaveEdit}"
                 CommandParameter="{Binding $parent[Window]}"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Center"

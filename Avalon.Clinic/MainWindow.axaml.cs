@@ -18,6 +18,7 @@ using Material.Styles.Models;
 using Material.Styles.Themes;
 using Material.Styles.Themes.Base;
 using ReactiveUI;
+using Avalon.Clinic.Pages;
 
 namespace Avalon.Clinic
 {
@@ -84,6 +85,22 @@ namespace Avalon.Clinic
             try
             {
                 PageCarousel.SelectedIndex = listBox.SelectedIndex;
+                /* 
+                if(PageCarousel.SelectedItem is ILazyLoad)
+                {
+                    Task.Run(()
+                    =>
+                    {
+                        Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(async()
+                        =>
+                        {
+                             await (PageCarousel.SelectedItem as ILazyLoad).LoadItems();
+                        });
+                       
+                    });
+                   
+                }
+                */
                 //mainScroller.Offset = Vector.Zero;
                 //mainScroller.VerticalScrollBarVisibility =
                 //listBox.SelectedIndex == 5 ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;

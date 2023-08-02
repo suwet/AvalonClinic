@@ -16,7 +16,7 @@ public class PatientDal : BaseDal {
                 connection.Open();
                 var query = @"SELECT t.*,
 		                            (SELECT BloodGroupName FROM bloodgroup WHERE t.BloodGroupId=Id LIMIT 1) AS BloodGroupName
-                               FROM patient t";
+                               FROM patient limit 10t";
                 results = connection.Query<Patient>(query).ToList();
                 connection.Close();
             }
@@ -28,6 +28,27 @@ public class PatientDal : BaseDal {
 
         return results;
     }
+
+    public async Task<IEnumerable<Patient>> GetAllAsync() {
+        IEnumerable<Patient> results = null;
+        try {
+            using (var connection = new MySqlConnection(ConnectionString)) {
+                await connection.OpenAsync();
+                var query = @"SELECT t.*,
+		                            (SELECT BloodGroupName FROM bloodgroup WHERE t.BloodGroupId=Id LIMIT 1) AS BloodGroupName
+                               FROM patient t limit 10";
+                results = await connection.QueryAsync<Patient>(query);
+                await connection.CloseAsync();
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return results;
+    }
+
 
     public List<Patient> Search(string search = "") {
         var results = new List<Patient>();

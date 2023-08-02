@@ -38,10 +38,10 @@ namespace Avalon.Clinic.Services.Patients
            }
         }
 
-        public async Task<List<PatientViewModel>> GetAllAsync() {
+        public async Task<IEnumerable<PatientViewModel>> GetAllAsync() {
             try {
-                var results = await Task.Run<List<Patient>>(() => _PatientDal.GetAll());
-                return await Task.FromResult<List<PatientViewModel>>(TheMapper.Map<List<PatientViewModel>>(results));
+                var results = await _PatientDal.GetAllAsync();
+                return await Task.FromResult<IEnumerable<PatientViewModel>>(TheMapper.Map<IEnumerable<PatientViewModel>>(results));
             }
             catch (Exception ex) {
                 throw;

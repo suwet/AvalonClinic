@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Dialogs;
 using Avalonia.Markup.Xaml;
 using Material.Dialog;
@@ -6,7 +7,7 @@ using Material.Styles.Assists;
 
 namespace Avalon.Clinic.Pages
 {
-    public class Home : UserControl
+    public class Home : UserControl,ILazyLoad
     {
         public Home()
         {
@@ -50,7 +51,10 @@ namespace Avalon.Clinic.Pages
             InitializeComponent();
             DataContext = this;
         }
+         public async Task LoadItems() {
 
+            await Task.Delay(1);
+        }
         //public ObservableCollection<FeatureStatusModels> Features { get; private set; }
 
         public void UseMaterialUIDarkTheme() => GlobalCommand.UseMaterialUIDarkTheme();

@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Material.Demo/Material.Demo.csproj",
+                "${workspaceFolder}/Avalon.Clinic/Avalon.Clinic.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Material.Demo/Material.Demo.csproj",
+                "${workspaceFolder}/Avalon.Clinic/Avalon.Clinic.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Material.Demo/Material.Demo.csproj"
+                "${workspaceFolder}/Avalon.Clinic/Avalon.Clinic.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

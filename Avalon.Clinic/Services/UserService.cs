@@ -53,7 +53,7 @@ namespace Avalon.Clinic.Services {
         
         public async Task<int> AddAsync(UsersViewModel data) {
             try {
-                return await _UserDal.InsertAsync(TheMapper.Map<UsersModel>(data));
+                return await _UserDal.InsertWithRoleAsync(TheMapper.Map<UsersModel>(data));
             }
             catch (Exception ex) {
                 throw;
@@ -81,7 +81,7 @@ namespace Avalon.Clinic.Services {
         public async Task<int> UpdateAsync(UsersViewModel data) {
             try {
                 data.modifield_date = DateTime.Now;
-                return await _UserDal.UpdateAsync(TheMapper.Map<UsersModel>(data));
+                return await _UserDal.UpdateWithRoleAsync(TheMapper.Map<UsersModel>(data));
             }
             catch (Exception ex) {
                 throw;

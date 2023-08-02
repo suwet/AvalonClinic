@@ -12,33 +12,31 @@ using ReactiveUI;
 using System.Reactive.Disposables;
 using System;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
-namespace Avalon.Clinic.Pages
-{
-    public partial class Register : ReactiveUserControl<ListPatientViewModel> 
-    {
+namespace Avalon.Clinic.Pages {
+    public partial class Register : ReactiveUserControl<ListPatientViewModel>, ILazyLoad {
         private PatientService service = new PatientService();
-        private TextBox filter; 
+        private TextBox filter;
         //private DataGrid grid_pateint;
-        public Register()
-        {
-            var results = service.GetAll();
-            this.DataContext = new ListPatientViewModel(results);
+        public Register() {
+            // var results = service.GetAll();
+            // this.DataContext = new ListPatientViewModel(results);
 
             InitializeComponent();
+            LoadItems();
             //filter = this.FindControl<TextBox>("txt_search");
 
             //grid_pateint = this.FindControl<DataGrid>("grd_patient");
 
-            this.WhenActivated(disposables =>
-            {
+            this.WhenActivated(disposables => {
                 /*  Type safe way
                 this.BindCommand(ViewModel, x => x.ExampleCommand, x => x.ExampleButton)
                .DisposeWith(disposables);
                 */
                 //this.Bind(ViewModel, (vm) => vm.Filter_Text, (v) => filter.Text);
 
-               
+
                 /* Handle activation */
                 Disposable
                     .Create(() => { /* Handle deactivation */ })
@@ -46,9 +44,12 @@ namespace Avalon.Clinic.Pages
             });
         }
 
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        public async Task LoadItems() {
+            this.DataContext = new ListPatientViewModel(await service.GetAllAsync());
         }
     }
 }

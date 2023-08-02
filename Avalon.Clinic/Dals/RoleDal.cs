@@ -32,7 +32,7 @@ namespace Avalon.Clinic.Dals {
                     using (var connection = new MySqlConnection(ConnectionString))    
                     {    
                         await connection.OpenAsync();    
-                        string query = @"Select  id,role_name,active,remark  From roles";
+                        string query = @"Select  id,role_name,active,remark  From roles limit 10";
                         results = await connection.QueryAsync<Roles>(query);    
                         connection.CloseAsync();    
                     }    
