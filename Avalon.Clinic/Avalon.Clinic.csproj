@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
@@ -47,7 +47,10 @@
     <AdditionalFiles Remove="Pages\Roles.axaml" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\delete_ico.png" />
+    <None Remove="Assets\edit_ico.png" />
     <None Remove="Assets\JsonDatas\Patients.json" />
+    <None Remove="Assets\person_ico.png" />
     <None Update="Dialogs\Users\EditUserDlg.axaml~">
       <DependentUpon>AddUserDlg.axaml</DependentUpon>
     </None>

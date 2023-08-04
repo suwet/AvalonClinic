@@ -110,8 +110,27 @@
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <Grid ColumnDefinitions="*,*">
-                    <Button Grid.Column="0"  CommandParameter="{Binding Id}" Command="{Binding $parent[UserControl].DataContext.EditCommand}" HorizontalAlignment="Right" Width="100" Margin="10" Background="Goldenrod" Padding="10" Content="แก้ไข"/>
-                    <Button Grid.Column="1" Command="{Binding $parent[UserControl].DataContext.DeleteCommand}" CommandParameter="{Binding Id}" HorizontalAlignment="Left" Width="100" Background="Red" Margin="10" Padding="10" Content="ลบ"/>
+                    <Button Grid.Column="0" Background="Transparent"  CommandParameter="{Binding Id}" Command="{Binding $parent[UserControl].DataContext.EditCommand}" HorizontalAlignment="Right" Width="100">
+                      <StackPanel>
+                        <Image
+                         Height="30"
+                         HorizontalAlignment="Center"
+                         Source="avares://Avalon.Clinic/Assets/edit_ico.png"
+                         VerticalAlignment="Top"
+                         Width="38" />
+                      </StackPanel>
+                    </Button>
+                    <Button
+                      Grid.Column="1" Command="{Binding $parent[UserControl].DataContext.DeleteCommand}" CommandParameter="{Binding Id}" HorizontalAlignment="Left" Width="100" Background="Transparent">
+                      <StackPanel>
+                        <Image
+                         Height="30"
+                         HorizontalAlignment="Center"
+                         Source="avares://Avalon.Clinic/Assets/delete_ico.png"
+                         VerticalAlignment="Top"
+                         Width="38" />
+                      </StackPanel>
+                    </Button>
                   </Grid>
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
